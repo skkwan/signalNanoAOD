@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: nanoProd_18abc -s NANO --data --eventcontent NANOAOD --datatier NANOAOD --no_exec --conditions 102X_dataRun2_Sep2018ABC_v2 --era Run2_2018,run2_nanoAOD_102Xv1 --filein file:test_18abc.root --fileout file:test_nano_18abc.root
+# with command line options: nanoProd_18d -s NANO --data --eventcontent NANOAOD --datatier NANOAOD --no_exec --conditions 102X_dataRun2_Prompt_v13 --era Run2_2018,run2_nanoAOD_102Xv1 --filein INPUT.root --fileout OUTPUT.root
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run2_2018_cff import Run2_2018
@@ -27,8 +27,8 @@ process.maxEvents = cms.untracked.PSet(
 
 # Input source
 process.source = cms.Source("PoolSource",
-                            fileNames = cms.untracked.vstring('file:example/merged_EXAMPLE_18a.root'),
-                            secondaryFileNames = cms.untracked.vstring()
+    fileNames = cms.untracked.vstring('INPUT.root'),
+    secondaryFileNames = cms.untracked.vstring()
 )
 
 process.options = cms.untracked.PSet(
@@ -37,7 +37,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('nanoProd_18abc nevts:1'),
+    annotation = cms.untracked.string('nanoProd_18d nevts:1'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -51,12 +51,11 @@ process.NANOAODoutput = cms.OutputModule("NanoAODOutputModule",
         dataTier = cms.untracked.string('NANOAOD'),
         filterName = cms.untracked.string('')
     ),
-    fileName = cms.untracked.string('file:example/test_nano_18abc.root'),
+    fileName = cms.untracked.string('OUTPUT.root'),
     outputCommands = process.NANOAODEventContent.outputCommands
 )
 
 # Additional output definition
-
 process.unpackedPatTrigger.triggerResults = cms.InputTag('TriggerResults::SIMembedding')
 
 process.NANOAODoutput.outputCommands.append("keep edmTriggerResults_*_*_SIMembedding")  # Trigger information
@@ -64,12 +63,13 @@ process.NANOAODoutput.outputCommands.append("keep edmTriggerResults_*_*_MERGE") 
 
 # Other statements
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '102X_dataRun2_Sep2018ABC_v2', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '102X_dataRun2_Prompt_v13', '')
 
 # Path and EndPath definitions
 process.nanoAOD_step = cms.Path(process.genParticleSequence + process.nanoSequenceCommon + process.nanoSequenceOnlyFullSim + process.muonMC + process.electronMC + process.photonMC + process.tauMC + process.globalTablesMC + process.btagWeightTable + process.genWeightsTable + process.genParticleTables)
 process.endjob_step = cms.EndPath(process.endOfProcess)
 process.NANOAODoutput_step = cms.EndPath(process.NANOAODoutput)
+
 
 # Schedule definition
 process.schedule = cms.Schedule(process.nanoAOD_step,process.endjob_step,process.NANOAODoutput_step)
@@ -92,4 +92,3 @@ process = nanoAOD_customizeData(process)
 from Configuration.StandardSequences.earlyDeleteSettings_cff import customiseEarlyDelete
 process = customiseEarlyDelete(process)
 # End adding early deletion
-
