@@ -1,0 +1,4 @@
+2018,EmbeddingRun2018A-MuTau,/EmbeddingRun2018A/MuTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER
+2018,EmbeddingRun2018B-MuTau,/EmbeddingRun2018B/MuTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER
+2018,EmbeddingRun2018C-MuTau,/EmbeddingRun2018C/MuTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER
+2018,EmbeddingRun2018D-MuTau,/EmbeddingRun2018D/MuTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER
