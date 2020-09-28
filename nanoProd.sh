@@ -78,7 +78,7 @@ do
 	done
 
 #	rm -r ${TEMP_DIR}/*.py
-    } 
+    } &
 done < ${SAMPLES} 
 
 wait
